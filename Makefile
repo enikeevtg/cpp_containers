@@ -1,9 +1,11 @@
 # UTILITIES
 CC = gcc
+LEAKS = leaks -atExit -- 
 
 # UTILITIES OPTIONS
-CF = -Wall -Werror -Wextra -lstdc++
+CF = -Wall -Werror -Wextra -lstdc++ -std=c++17
 
+# FILENAMES
 
 
 
@@ -19,6 +21,10 @@ gost:
 
 
 # EXPERIMENTS
+main:
+	$(CC) $(CF) $@.cc
+	$(LEAKS) ./a.out
+
 array:
 	$(CC) $(CF) experiments/$@.cc
 	./a.out
