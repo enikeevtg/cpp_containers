@@ -6,6 +6,14 @@ int main() {
   for (auto i = l.begin(); i != l.end(); ++i) {
     std::cout << *i << " ";
   }
-  std::cout << *l.end();
+  std::cout << std::endl;
+  for (auto i = --(l.end()); i != l.begin(); --i) {
+    std::cout << *i << " ";
+  }
+  std::cout << std::endl;
+  for (auto i = --(l.end()); i != l.end(); --i) {
+    std::cout << *i << " ";
+  }
+  // std::cout << *l.end();
   return 0;
 }

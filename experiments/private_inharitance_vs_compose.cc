@@ -20,6 +20,8 @@ class List {
     node_.data = new int();
     }
   ~List() {}
+  typedef T value_type;
+  // using value_type = T;
 
   void PushBack(){
     ListNode<T> new_node = new ListNode<T>;
@@ -28,25 +30,26 @@ class List {
       *(new_node.prev).next = &new_node;
     }
     
+
     new_node.next = &end_;
     end_.prev = &new_node;
-    // ListNode new_node = new ListNode;
-    // node_.next = new_node;
-    // new_node.prev = node_;
   }
 
   void PushFront(){};
 
- private:
+ protected:
+  using value_type = T;
+  using reference = T&;
+
   ListNodeBase<T> end_;
   ListNode<T> node_;
 };
 
 template <class T>
-class StackLegacy : private List<T> {
+class StackInheritance : private List<T> {
  public:
-  StackLegacy(){};
-  ~StackLegacy(){};
+  StackInheritance(){};
+  ~StackInheritance(){};
   using List<T>::PushFront;
 };
 
@@ -66,7 +69,7 @@ int main() {
   List<int> list;
   list.PushBack();
   list.PushBack();
-  StackLegacy<int> s_legacy;
+  StackInheritance<int> s_legacy;
   s_legacy.PushFront();
   StackCompose<int> s_compose;
   s_compose.PushFront();
