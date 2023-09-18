@@ -6,7 +6,7 @@ LEAKS = leaks -atExit --
 CF = -Wall -Werror -Wextra -lstdc++ -std=c++17
 
 # FILENAMES
-
+EXE = a.out
 
 
 
@@ -17,7 +17,9 @@ style:
 gost:
 	find . -name "*.h" -o -name "*.cc" | xargs clang-format --style=google -i
 
-
+clean:
+	$(RM) $(EXE)
+	$(RM) *.gch
 
 
 # EXPERIMENTS
