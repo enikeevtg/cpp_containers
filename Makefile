@@ -12,10 +12,10 @@ EXE = a.out
 
 # SERVICE
 style:
-	find . -name "*.h" -o -name "*.cc" | xargs clang-format --style=google -n
+	find . -name "*.h" -o -name "*.cc" -o -name "*.tpp" | xargs clang-format --style=google -n
 
 gost:
-	find . -name "*.h" -o -name "*.cc" | xargs clang-format --style=google -i
+	find . -name "*.h" -o -name "*.cc" -o -name "*.tpp" | xargs clang-format --style=google -i
 
 clean:
 	$(RM) $(EXE)

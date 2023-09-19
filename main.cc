@@ -11,6 +11,6 @@ int main() {
   l.PushBack(rand() % 10 + 1);
   l.PushBack(rand() % 10 + 1);
   l.PushBack(rand() % 10 + 1);
-  l.PrintNodesPtr();
+  l.PrintNodes();
   return 0;
 }

@@ -18,18 +18,17 @@ class List {
     node_.prev = nullptr;
     node_.next = nullptr;
     node_.data = new int();
-    }
+  }
   ~List() {}
   typedef T value_type;
   // using value_type = T;
 
-  void PushBack(){
+  void PushBack() {
     ListNode<T> new_node = new ListNode<T>;
     new_node.prev = end_.prev;
     if (new_node.prev != nullptr) {
       *(new_node.prev).next = &new_node;
     }
-    
 
     new_node.next = &end_;
     end_.prev = &new_node;
