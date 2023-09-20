@@ -17,10 +17,17 @@ struct ListNode : public ListNodeBase<T> {
 template <class T>
 class List {
  public:
+  using value_type = T;
+  using reference = T&;
+  using const_reference = const T&;
+  using iterator = ListIterator<T>;
+  using const_iterator = ListConstIterator<T>;
+  using size_type = size_t;
+
   List();
   ~List();
 
-  void PushBack(const T& value);
+  void PushBack(const_reference value);
 
   void PrintEndPtr();
   void PrintNodes();

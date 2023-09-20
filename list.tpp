@@ -1,4 +1,6 @@
-#include "list.h"
+/*
+LIST IMPLEMENTATION FILE
+*/
 
 template <class T>
 List<T>::List() {
@@ -17,7 +19,7 @@ List<T>::~List() {
 }
 
 template <class T>
-void List<T>::PushBack(const T& value) {
+void List<T>::PushBack(const_reference value) {
   ListNode<T>* new_node = new ListNode<T>;
   new_node->prev = end_.prev;
   new_node->next = &end_;
