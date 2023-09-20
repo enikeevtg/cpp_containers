@@ -31,6 +31,7 @@ class List {
   size_type Size() const noexcept;
   size_type MaxSize() const noexcept;
 
+  void Clear();
   void PushBack(const_reference value);
 
   void PrintEndPtr();

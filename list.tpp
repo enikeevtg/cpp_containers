@@ -10,12 +10,7 @@ List<T>::List() : size_(0) {
 
 template <class T>
 List<T>::~List() {
-  ListNode<T>* ptr = (ListNode<T>*)end_.next;
-  while (ptr != (ListNode<T>*)&end_) {
-    ListNode<T>* tmp_ptr = (ListNode<T>*)ptr->next;
-    delete ptr;
-    ptr = tmp_ptr;
-  }
+  Clear();
 }
 
 template <class T>
@@ -35,6 +30,16 @@ size_t List<T>::MaxSize() const noexcept {
   //           << std::endl;
   // std::cout << "sizeof(ListNode<T>) = " << sizeof(ListNode<T>) << std::endl;
   return (SIZE_MAX - sizeof(ListNodeBase<T>)) / sizeof(ListNode<T>);
+}
+
+template <class T>
+void List<T>::Clear() {
+  ListNode<T>* ptr = (ListNode<T>*)end_.next;
+  while (ptr != (ListNode<T>*)&end_) {
+    ListNode<T>* tmp_ptr = (ListNode<T>*)ptr->next;
+    delete ptr;
+    ptr = tmp_ptr;
+  }
 }
 
 template <class T>

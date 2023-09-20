@@ -1,6 +1,6 @@
 # UTILITIES
 CC = gcc
-# LEAKS = leaks -atExit -- 
+LEAKS = leaks -atExit -- 
 
 # UTILITIES OPTIONS
 CF = -Wall -Werror -Wextra -lstdc++ -std=c++17
