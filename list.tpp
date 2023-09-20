@@ -3,7 +3,7 @@ LIST IMPLEMENTATION FILE
 */
 
 template <class T>
-List<T>::List() {
+List<T>::List() : size_(0) {
   end_.prev = &end_;
   end_.next = &end_;
 }
@@ -19,6 +19,25 @@ List<T>::~List() {
 }
 
 template <class T>
+bool List<T>::Empty() const noexcept {
+  return size_ == 0;
+}
+
+template <class T>
+size_t List<T>::Size() const noexcept {
+  return size_;
+}
+
+template <class T>
+size_t List<T>::MaxSize() const noexcept {
+  // std::cout << "SIZE_MAX = " << SIZE_MAX << std::endl;
+  // std::cout << "sizeof(ListNodeBase<T>) = " << sizeof(ListNodeBase<T>)
+  //           << std::endl;
+  // std::cout << "sizeof(ListNode<T>) = " << sizeof(ListNode<T>) << std::endl;
+  return (SIZE_MAX - sizeof(ListNodeBase<T>)) / sizeof(ListNode<T>);
+}
+
+template <class T>
 void List<T>::PushBack(const_reference value) {
   ListNode<T>* new_node = new ListNode<T>;
   new_node->prev = end_.prev;
@@ -29,6 +48,8 @@ void List<T>::PushBack(const_reference value) {
 
   end_.prev = (ListNodeBase<T>*)new_node;
   if (end_.next == &end_) end_.next = (ListNodeBase<T>*)new_node;
+
+  ++size_;
 }
 
 template <class T>
@@ -36,6 +57,7 @@ void List<T>::PrintEndPtr() {
   std::cout << "&end = " << &end_ << std::endl;
   std::cout << "end_.prev = " << end_.prev << std::endl;
   std::cout << "end_.next = " << end_.next << std::endl;
+  std::cout << std::endl;
 }
 
 template <class T>

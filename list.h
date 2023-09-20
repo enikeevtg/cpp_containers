@@ -20,12 +20,16 @@ class List {
   using value_type = T;
   using reference = T&;
   using const_reference = const T&;
-  using iterator = ListIterator<T>;
-  using const_iterator = ListConstIterator<T>;
+  // using iterator = ListIterator<T>;
+  // using const_iterator = ListConstIterator<T>;
   using size_type = size_t;
 
   List();
   ~List();
+
+  bool Empty() const noexcept;
+  size_type Size() const noexcept;
+  size_type MaxSize() const noexcept;
 
   void PushBack(const_reference value);
 
@@ -34,6 +38,7 @@ class List {
 
  private:
   ListNodeBase<T> end_;
+  size_type size_;
 };
 
 #include "list.tpp"
