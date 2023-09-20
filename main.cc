@@ -9,7 +9,7 @@ int main() {
   for (int i = 0; i < n; ++i) {
     l.PushBack(i * i);
   }
-  // l.PrintNodes();
+  l.PrintNodes();
   std::cout << "size = " << l.Size() << std::endl;
   return 0;
 }

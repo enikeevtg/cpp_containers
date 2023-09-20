@@ -67,15 +67,23 @@ void List<T>::PrintEndPtr() {
 
 template <class T>
 void List<T>::PrintNodes() {
-  ListNode<T>* ptr = (ListNode<T>*)end_.next;
   int i = 1;
-  while (ptr != (ListNode<T>*)&end_) {
-    std::cout << "node#" << i << " = " << ptr << std::endl;
-    std::cout << "node#" << i << ".prev = " << ptr->prev << std::endl;
-    std::cout << "node#" << i << ".next = " << ptr->next << std::endl;
-    std::cout << "node#" << i << ".value = " << ptr->value << std::endl;
-    std::cout << std::endl;
-    ptr = (ListNode<T>*)(ptr->next);
-    ++i;
+  for (ListIterator<T> iter = Begin(); iter != End(); ++iter, ++i) {
+    std::cout << "node#" << i << ".value = " << *iter << std::endl;
   }
 }
+
+// template <class T>
+// void List<T>::PrintNodes() {
+//   ListNode<T>* ptr = (ListNode<T>*)end_.next;
+//   int i = 1;
+//   while (ptr != (ListNode<T>*)&end_) {
+//     std::cout << "node#" << i << " = " << ptr << std::endl;
+//     std::cout << "node#" << i << ".prev = " << ptr->prev << std::endl;
+//     std::cout << "node#" << i << ".next = " << ptr->next << std::endl;
+//     std::cout << "node#" << i << ".value = " << ptr->value << std::endl;
+//     std::cout << std::endl;
+//     ptr = (ListNode<T>*)(ptr->next);
+//     ++i;
+//   }
+// }
