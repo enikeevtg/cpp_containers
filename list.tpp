@@ -16,22 +16,22 @@ List<T>::~List() {
 // LIST ITERATORS
 template <typename T>
 typename List<T>::iterator List<T>::Begin() noexcept {
-  return iterator((ListNode<T>*)end_.next);
+  return iterator((list_node*)end_.next);
 }
 
 template <typename T>
 typename List<T>::const_iterator List<T>::Begin() const noexcept {
-  return const_iterator((ListNode<T>*)end_.next);
+  return const_iterator((list_node*)end_.next);
 }
 
 template <typename T>
 typename List<T>::iterator List<T>::End() noexcept {
-  return iterator((ListNode<T>*)&end_);
+  return iterator((list_node*)&end_);
 }
 
 template <typename T>
 typename List<T>::const_iterator List<T>::End() const noexcept {
-  return const_iterator((ListNode<T>*)&end_);
+  return const_iterator((list_node*)&end_);
 }
 
 // LIST CAPACITY
@@ -47,15 +47,15 @@ size_t List<T>::Size() const noexcept {
 
 template <typename T>
 size_t List<T>::MaxSize() const noexcept {
-  return (SIZE_MAX - sizeof(ListNodeBase<T>)) / sizeof(ListNode<T>);
+  return (SIZE_MAX - sizeof(list_node_base)) / sizeof(list_node);
 }
 
 // LIST MODIFIERS
 template <typename T>
 void List<T>::Clear() {
-  ListNode<T>* ptr = (ListNode<T>*)end_.next;
-  while (ptr != (ListNode<T>*)&end_) {
-    ListNode<T>* tmp_ptr = (ListNode<T>*)ptr->next;
+  list_node* ptr = (list_node*)end_.next;
+  while (ptr != (list_node*)&end_) {
+    list_node* tmp_ptr = (list_node*)ptr->next;
     delete ptr;
     ptr = tmp_ptr;
   }
@@ -63,15 +63,15 @@ void List<T>::Clear() {
 
 template <typename T>
 void List<T>::PushBack(const_reference value) {
-  ListNode<T>* new_node = new ListNode<T>;
+  list_node* new_node = new list_node;
   new_node->prev = end_.prev;
   new_node->next = &end_;
   new_node->value = value;
 
-  (new_node->prev)->next = (ListNodeBase<T>*)new_node;
+  (new_node->prev)->next = (list_node_base*)new_node;
 
-  end_.prev = (ListNodeBase<T>*)new_node;
-  if (end_.next == &end_) end_.next = (ListNodeBase<T>*)new_node;
+  end_.prev = (list_node_base*)new_node;
+  if (end_.next == &end_) end_.next = (list_node_base*)new_node;
 
   ++size_;
 }
