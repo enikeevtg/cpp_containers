@@ -127,6 +127,7 @@ class List {
 
   void Clear();
   iterator Insert(iterator pos, const_reference value);
+  void PushFront(const_reference value);
   void PushBack(const_reference value);
 
   void PrintEndPtr();

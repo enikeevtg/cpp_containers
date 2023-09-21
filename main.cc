@@ -44,5 +44,8 @@ int main() {
   std::cout << "*(iter_post)++ = " << *(iter_post)++ << std::endl;
   std::cout << "*iter_post = " << *iter_post << std::endl;
 
+  l.PushFront(800);
+  l.PrintNodes();
+
   return 0;
 }

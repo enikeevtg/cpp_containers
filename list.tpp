@@ -78,16 +78,42 @@ typename List<T>::iterator List<T>::Insert(iterator pos,
 }
 
 template <typename T>
+void List<T>::PushFront(const_reference value) {
+  // new node
+  list_node* new_node = new list_node;
+  new_node->prev = &end_;
+  new_node->next = end_.next;
+  new_node->value = value;
+  
+  // exfirst node
+  end_.next->prev = (list_node_base*)new_node;
+
+  // node after end node
+  if (Empty()) end_.prev = (list_node_base*)new_node;
+  end_.next = (list_node_base*)new_node;
+
+  ++size_;
+}
+
+// template <typename T>
+// void List<T>::PushFront(const_reference value) {
+//   Insert(End(), value);
+// }
+
+template <typename T>
 void List<T>::PushBack(const_reference value) {
+  // new node
   list_node* new_node = new list_node;
   new_node->prev = end_.prev;
   new_node->next = &end_;
   new_node->value = value;
 
-  new_node->prev->next = (list_node_base*)new_node;
+  // exlast node
+  end_.prev->next = (list_node_base*)new_node;
 
+  // node after end node
   end_.prev = (list_node_base*)new_node;
-  if (end_.next == &end_) end_.next = (list_node_base*)new_node;
+  if (Empty()) end_.next = (list_node_base*)new_node;
 
   ++size_;
 }
