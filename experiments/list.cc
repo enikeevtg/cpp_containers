@@ -19,6 +19,7 @@ int main() {
   }
   std::cout << std::endl;
   std::cout << "*l_int.end() = " << *l_int.end() << std::endl;
+  std::cout << "*l_int.max_size() = " << l_int.max_size() << std::endl;
   //-----------------------------------------------------------------
 
   // double:

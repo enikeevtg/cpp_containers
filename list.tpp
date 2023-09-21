@@ -62,6 +62,22 @@ void List<T>::Clear() {
 }
 
 template <typename T>
+typename List<T>::iterator List<T>::Insert(iterator pos,
+                                           const_reference value) {
+  list_node* new_node = new list_node;
+  new_node->prev = pos.ptr_;
+  new_node->next = pos.ptr_->next;
+  new_node->value = value;
+
+  pos.ptr_->next->prev = new_node;
+  pos.ptr_->next = new_node;
+
+  ++size_;
+
+  return ++pos;
+}
+
+template <typename T>
 void List<T>::PushBack(const_reference value) {
   list_node* new_node = new list_node;
   new_node->prev = end_.prev;

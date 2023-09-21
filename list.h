@@ -39,16 +39,16 @@ class ListIterator {
     return *this;
   }
 
-  friend bool operator==(const ListIterator& left, const ListIterator& right) {
-    return left.ptr_ == (ListNode<T>*)right.ptr_;
+  bool operator==(const ListIterator& iter) const {
+    return ptr_ == (ListNode<T>*)iter.ptr_;
   }
 
-  friend bool operator!=(const ListIterator& left, const ListIterator& right) {
-    return !(left == right);
-  }
+  bool operator!=(const ListIterator& iter) const { return !(*this == iter); }
 
  private:
   ListNode<T>* ptr_;
+  template <typename>
+  friend class List;
 };
 
 template <typename T>
@@ -74,18 +74,16 @@ class ListConstIterator {
     return *this;
   }
 
-  friend bool operator==(const ListConstIterator& left,
-                         const ListConstIterator& right) {
-    return left.ptr_ == (ListNode<T>*)right.ptr_;
+  bool operator==(const ListConstIterator& iter) {
+    return ptr_ == (ListNode<T>*)iter.ptr_;
   }
 
-  friend bool operator!=(const ListConstIterator& left,
-                         const ListConstIterator& right) {
-    return !(left == right);
-  }
+  bool operator!=(const ListConstIterator& iter) { return !(*this == iter); }
 
  private:
   ListNode<T>* ptr_;
+  template <typename>
+  friend class List;
 };
 
 // LIST
@@ -114,13 +112,14 @@ class List {
   size_type MaxSize() const noexcept;
 
   void Clear();
+  iterator Insert(iterator pos, const_reference value);
   void PushBack(const_reference value);
 
   void PrintEndPtr();
   void PrintNodes();
 
  private:
-  ListNodeBase<T> end_;
+  list_node_base end_;
   size_type size_;
 };
 
