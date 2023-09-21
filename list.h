@@ -34,9 +34,21 @@ class ListIterator {
     return *this;
   }
 
+  ListIterator operator++(int) {
+    ListIterator tmp = *this;
+    ptr_ = (ListNode<T>*)ptr_->next;
+    return tmp;
+  }
+
   ListIterator& operator--() {
     ptr_ = (ListNode<T>*)ptr_->prev;
     return *this;
+  }
+
+  ListIterator operator--(int) {
+    ListIterator tmp = *this;
+    ptr_ = (ListNode<T>*)ptr_->prev;
+    return tmp;
   }
 
   bool operator==(const ListIterator& iter) const {
@@ -47,6 +59,7 @@ class ListIterator {
 
  private:
   ListNode<T>* ptr_;
+
   template <typename>
   friend class List;
 };
@@ -82,6 +95,7 @@ class ListConstIterator {
 
  private:
   ListNode<T>* ptr_;
+
   template <typename>
   friend class List;
 };

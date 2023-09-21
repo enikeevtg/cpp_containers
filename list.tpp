@@ -84,13 +84,18 @@ void List<T>::PushBack(const_reference value) {
   new_node->next = &end_;
   new_node->value = value;
 
-  (new_node->prev)->next = (list_node_base*)new_node;
+  new_node->prev->next = (list_node_base*)new_node;
 
   end_.prev = (list_node_base*)new_node;
   if (end_.next == &end_) end_.next = (list_node_base*)new_node;
 
   ++size_;
 }
+
+// template <typename T>
+// void List<T>::PushBack(const_reference value) {
+//   Insert(--End(), value);
+// }
 
 template <typename T>
 void List<T>::PrintEndPtr() {
