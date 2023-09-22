@@ -143,7 +143,6 @@ class List {
   void ReversePrintNodes();
 
  private:
-
   list_node_base end_;
   size_type size_;
 };

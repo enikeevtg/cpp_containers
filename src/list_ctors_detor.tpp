@@ -27,8 +27,9 @@ List<T>::List(std::initializer_list<value_type> const& items) : List() {
 
 template <typename T>
 List<T>::List(const List& other) : List() {
-  for (iterator it = other.Begin(), end_it = other.End(); it != end_it; ++it) {
-    PushBack(*it);
+  for (list_node* node_ptr = (list_node*)end_.next;
+       node_ptr != (list_node*)&end_; node_ptr = (list_node*)node_ptr->next) {
+    PushBack(node_ptr->value);
   }
 }
 
