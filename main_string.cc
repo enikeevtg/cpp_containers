@@ -1,10 +1,13 @@
-#include "list.h"
 #include <string>
+
+#include "list.h"
 
 int main() {
   // List<std::string> l;
   List<std::string> l(11);
-  // List<std::string> l{"List<T>","::","List(","std::initializer_list","<value_type>", "const&", "items)"};
+  // List<std::string>
+  // l{"List<T>","::","List(","std::initializer_list","<value_type>", "const&",
+  // "items)"};
   std::cout << "empty is " << l.Empty() << std::endl;
   std::cout << "size = " << l.Size() << std::endl;
   std::cout << "max size is " << l.MaxSize() << std::endl;

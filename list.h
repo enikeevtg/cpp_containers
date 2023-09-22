@@ -121,6 +121,7 @@ class List {
   List(const List& other);
   List(List&& other);
   ~List();
+  List operator=(List&& other);
 
   iterator Begin() noexcept;
   const_iterator Begin() const noexcept;
@@ -133,14 +134,16 @@ class List {
 
   void Clear();
   iterator Insert(iterator pos, const_reference value);
-  void PushFront(const_reference value);
   void PushBack(const_reference value);
+  void PushFront(const_reference value);
+  void Swap(List& other) noexcept;
 
   void PrintEndPtr();
   void PrintNodes();
   void ReversePrintNodes();
 
  private:
+
   list_node_base end_;
   size_type size_;
 };

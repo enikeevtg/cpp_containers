@@ -34,11 +34,19 @@ List<T>::List(const List& other) : List() {
 
 template <typename T>
 List<T>::List(List&& other) : List() {
-  std::swap(end_.next, other.end_.next);
-  std::swap(end_.prev, other.end_.prev);
+  Swap(other);
 }
 
 template <typename T>
 List<T>::~List() {
   Clear();
+}
+
+template <typename T>
+List<T> List<T>::operator=(List&& other) {
+  if (*this != other) {
+    Clear();
+    Swap(other);
+  }
+  return *this;
 }

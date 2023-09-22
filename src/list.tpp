@@ -44,10 +44,12 @@ template <typename T>
 void List<T>::Clear() {
   list_node* ptr = (list_node*)end_.next;
   while (ptr != (list_node*)&end_) {
-    list_node* tmp_ptr = (list_node*)ptr->next;
+    list_node* next_node_ptr = (list_node*)ptr->next;
     delete ptr;
-    ptr = tmp_ptr;
+    ptr = next_node_ptr;
   }
+  end_.next = &end_;
+  end_.prev = &end_;
   size_ = 0;
 }
 
@@ -65,6 +67,24 @@ typename List<T>::iterator List<T>::Insert(iterator pos,
   ++size_;
 
   return ++pos;
+}
+
+template <typename T>
+void List<T>::PushBack(const_reference value) {
+  // new node
+  list_node* new_node = new list_node;
+  new_node->prev = end_.prev;
+  new_node->next = &end_;
+  new_node->value = value;
+
+  // exlast node
+  end_.prev->next = (list_node_base*)new_node;
+
+  // node after end node
+  end_.prev = (list_node_base*)new_node;
+  if (Empty()) end_.next = (list_node_base*)new_node;
+
+  ++size_;
 }
 
 template <typename T>
@@ -86,19 +106,8 @@ void List<T>::PushFront(const_reference value) {
 }
 
 template <typename T>
-void List<T>::PushBack(const_reference value) {
-  // new node
-  list_node* new_node = new list_node;
-  new_node->prev = end_.prev;
-  new_node->next = &end_;
-  new_node->value = value;
-
-  // exlast node
-  end_.prev->next = (list_node_base*)new_node;
-
-  // node after end node
-  end_.prev = (list_node_base*)new_node;
-  if (Empty()) end_.next = (list_node_base*)new_node;
-
-  ++size_;
+void List<T>::Swap(List& other) noexcept {
+  std::swap(end_.next, other.end_.next);
+  std::swap(end_.prev, other.end_.prev);
+  std::swap(size_, other.size_);
 }
