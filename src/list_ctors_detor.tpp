@@ -18,11 +18,24 @@ List<T>::List(List<T>::size_type n) : List() {
 template <typename T>
 List<T>::List(std::initializer_list<value_type> const& items) : List() {
   for (typename std::initializer_list<value_type>::const_iterator
-           iter = items.begin(),
-           end_iter = items.end();
-       iter != end_iter; ++iter) {
+           it = items.begin(),
+           end_it = items.end();
+       it != end_it; ++it) {
     PushBack(*iter);
   }
+}
+
+template <typename T>
+List<T>::List(const List& other) : List() {
+  for (iterator it = other.Begin(), end_it = other.End(); it != end_it; ++it) {
+    PushBack(*it);
+  }
+}
+
+template <typename T>
+List<T>::List(List&& other) : List() {
+  std::swap(end_.next, other.end_.next);
+  std::swap(end_.prev, other.end_.prev);
 }
 
 template <typename T>

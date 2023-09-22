@@ -118,6 +118,8 @@ class List {
   List();
   explicit List(size_type n);
   List(std::initializer_list<value_type> const& items);
+  List(const List& other);
+  List(List&& other);
   ~List();
 
   iterator Begin() noexcept;
