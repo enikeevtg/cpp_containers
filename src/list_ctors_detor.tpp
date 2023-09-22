@@ -21,14 +21,15 @@ List<T>::List(std::initializer_list<value_type> const& items) : List() {
            it = items.begin(),
            end_it = items.end();
        it != end_it; ++it) {
-    PushBack(*iter);
+    PushBack(*it);
   }
 }
 
 template <typename T>
 List<T>::List(const List& other) : List() {
-  for (list_node* node_ptr = (list_node*)end_.next;
-       node_ptr != (list_node*)&end_; node_ptr = (list_node*)node_ptr->next) {
+  list_node* end_node_ptr = (list_node*)&other.end_;
+  for (list_node* node_ptr = (list_node*)other.end_.next;
+       node_ptr != end_node_ptr; node_ptr = (list_node*)node_ptr->next) {
     PushBack(node_ptr->value);
   }
 }

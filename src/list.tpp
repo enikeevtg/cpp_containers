@@ -42,11 +42,12 @@ size_t List<T>::MaxSize() const noexcept {
 // LIST MODIFIERS
 template <typename T>
 void List<T>::Clear() {
-  list_node* ptr = (list_node*)end_.next;
-  while (ptr != (list_node*)&end_) {
-    list_node* next_node_ptr = (list_node*)ptr->next;
-    delete ptr;
-    ptr = next_node_ptr;
+  list_node* node_ptr = (list_node*)end_.next;
+  list_node* end_node_ptr = (list_node*)&end_;
+  while (node_ptr != end_node_ptr) {
+    list_node* next_node_ptr = (list_node*)node_ptr->next;
+    delete node_ptr;
+    node_ptr = next_node_ptr;
   }
   end_.next = &end_;
   end_.prev = &end_;
@@ -80,7 +81,7 @@ void List<T>::PushBack(const_reference value) {
   // exlast node
   end_.prev->next = (list_node_base*)new_node;
 
-  // node after end node
+  // node after last node
   end_.prev = (list_node_base*)new_node;
   if (Empty()) end_.next = (list_node_base*)new_node;
 
@@ -98,7 +99,7 @@ void List<T>::PushFront(const_reference value) {
   // exfirst node
   end_.next->prev = (list_node_base*)new_node;
 
-  // node after end node
+  // node after last node
   if (Empty()) end_.prev = (list_node_base*)new_node;
   end_.next = (list_node_base*)new_node;
 
@@ -110,4 +111,20 @@ void List<T>::Swap(List& other) noexcept {
   std::swap(end_.next, other.end_.next);
   std::swap(end_.prev, other.end_.prev);
   std::swap(size_, other.size_);
+
+  if (size_ == 0) {
+    end_.prev = &end_;
+    end_.next = &end_;
+  } else {
+    end_.prev->next = &end_;
+    end_.next->prev = &end_;
+  }
+
+  if (other.size_ == 0) {
+    other.end_.prev = &other.end_;
+    other.end_.next = &other.end_;
+  } else {
+    other.end_.prev->next = &other.end_;
+    other.end_.next->prev = &other.end_;
+  }
 }
