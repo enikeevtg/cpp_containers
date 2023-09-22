@@ -3,7 +3,7 @@
 #include <string>
 
 int main() {
-  std::list<int> l(11);
+  std::list<std::string> l(11);
   for (auto i = l.begin(); i != l.end(); ++i) {
     std::cout << *i << " ";
   }
@@ -47,7 +47,8 @@ int main() {
 
   // string:
   std::cout << "string\n";
-  std::list<std::string> l_str{"1.f", "2.f", "3.f", "9.f"};
+  std::list<std::string> l_str(10);
+  // std::list<std::string> l_str{"1.f", "2.f", "3.f", "9.f"};
   for (auto i = l_str.begin(); i != l_str.end(); ++i) {
     std::cout << *i << " ";
   }

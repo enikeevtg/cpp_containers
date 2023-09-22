@@ -23,8 +23,12 @@ clean:
 
 
 # EXPERIMENTS
-main:
-	$(CC) $(CF) $@.cc
+int:
+	$(CC) $(CF) main_$@.cc
+	$(LEAKS) ./a.out
+
+string:
+	$(CC) $(CF) main_$@.cc
 	$(LEAKS) ./a.out
 
 array:

@@ -10,7 +10,9 @@ List<T>::List() : size_(0) {
 
 template <typename T>
 List<T>::List(List<T>::size_type n) : List() {
-  for (; n > 0; --n) PushBack(0);
+  value_type* default_value = new value_type;
+  for (; n > 0; --n) PushBack(*default_value);
+  delete default_value;
 }
 
 template <typename T>

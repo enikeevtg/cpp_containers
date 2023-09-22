@@ -15,7 +15,7 @@ struct ListNode : public ListNodeBase<T> {
   T value;
 };
 
-// LIST ITERATOR
+// LIST ITERATORS
 template <typename T>
 class ListIterator {
  public:
@@ -102,7 +102,7 @@ class ListConstIterator {
   friend class List;
 };
 
-// LIST
+// LIST CLASS
 template <typename T>
 class List {
  public:
@@ -143,8 +143,8 @@ class List {
   size_type size_;
 };
 
-#include "list.tpp"
-#include "list_ctors_detor.tpp"
-#include "list_extra.tpp"
+#include "src/list.tpp"
+#include "src/list_ctors_detor.tpp"
+#include "src/list_extra.tpp"
 
 #endif  // CPP_CONTAINERS_LIST_H_

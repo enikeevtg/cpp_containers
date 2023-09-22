@@ -4,7 +4,6 @@ LIST CTORS/DETOR IMPLEMENTATION FILE
 
 template <typename T>
 List<T>::List(List<T>::size_type n) : size_(n) {
-  // while (n-- > 0) PushBack(0);  // have to delegating call List() ctor
   list_node_base* tmp_prev_node = &end_;
   list_node* new_node;
   while (n-- > 0) {
