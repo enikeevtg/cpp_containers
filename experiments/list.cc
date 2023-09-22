@@ -3,6 +3,11 @@
 #include <string>
 
 int main() {
+  std::list<int> l(11);
+  for (auto i = l.begin(); i != l.end(); ++i) {
+    std::cout << *i << " ";
+  }
+  std::cout << std::endl;
   // int:
   std::cout << "int\n";
   std::list<int> l_int{1, 2, 3, 9, 15, 11};

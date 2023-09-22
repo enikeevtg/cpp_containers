@@ -114,6 +114,7 @@ class List {
   using size_type = size_t;
 
   List();
+  explicit List(size_type n);
   ~List();
 
   iterator Begin() noexcept;
@@ -132,6 +133,7 @@ class List {
 
   void PrintEndPtr();
   void PrintNodes();
+  void ReversePrintNodes();
 
  private:
   list_node_base end_;
@@ -139,5 +141,6 @@ class List {
 };
 
 #include "list.tpp"
+#include "list_extra.tpp"
 
 #endif  // CPP_CONTAINERS_LIST_H_

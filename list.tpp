@@ -9,6 +9,22 @@ List<T>::List() : size_(0) {
 }
 
 template <typename T>
+List<T>::List(List<T>::size_type n) : size_(n) {
+  // while (n-- > 0) PushBack(0);  // have to delegating call List() ctor
+  list_node_base* tmp_prev_node = &end_;
+  list_node* new_node;
+  while (n-- > 0) {
+    new_node = new list_node;
+    tmp_prev_node->next = (list_node_base*)new_node;
+    new_node->prev = tmp_prev_node;
+    new_node->value = (List<T>::value_type)0;
+    tmp_prev_node = (list_node_base*)new_node;
+  }
+  new_node->next = &end_;
+  end_.prev = (list_node_base*)new_node;
+}
+
+template <typename T>
 List<T>::~List() {
   Clear();
 }
@@ -59,6 +75,7 @@ void List<T>::Clear() {
     delete ptr;
     ptr = tmp_ptr;
   }
+  size_ = 0;
 }
 
 template <typename T>
@@ -122,19 +139,3 @@ void List<T>::PushBack(const_reference value) {
 // void List<T>::PushBack(const_reference value) {
 //   Insert(--End(), value);
 // }
-
-template <typename T>
-void List<T>::PrintEndPtr() {
-  std::cout << "&end = " << &end_ << std::endl;
-  std::cout << "end_.prev = " << end_.prev << std::endl;
-  std::cout << "end_.next = " << end_.next << std::endl;
-  std::cout << std::endl;
-}
-
-template <typename T>
-void List<T>::PrintNodes() {
-  int i = 1;
-  for (ListIterator iter = Begin(); iter != End(); ++iter, ++i) {
-    std::cout << "node#" << i << ".value = " << *iter << std::endl;
-  }
-}
