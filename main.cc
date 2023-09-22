@@ -1,7 +1,9 @@
 #include "list.h"
 
 int main() {
-  List<int> l(11);
+  // List<int> l;
+  // List<int> l(11);
+  List<int> l{0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
   std::cout << "empty is " << l.Empty() << std::endl;
   std::cout << "size = " << l.Size() << std::endl;
   std::cout << "max size is " << l.MaxSize() << std::endl;

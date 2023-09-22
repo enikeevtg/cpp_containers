@@ -2,33 +2,6 @@
 LIST IMPLEMENTATION FILE
 */
 
-template <typename T>
-List<T>::List() : size_(0) {
-  end_.prev = &end_;
-  end_.next = &end_;
-}
-
-template <typename T>
-List<T>::List(List<T>::size_type n) : size_(n) {
-  // while (n-- > 0) PushBack(0);  // have to delegating call List() ctor
-  list_node_base* tmp_prev_node = &end_;
-  list_node* new_node;
-  while (n-- > 0) {
-    new_node = new list_node;
-    tmp_prev_node->next = (list_node_base*)new_node;
-    new_node->prev = tmp_prev_node;
-    new_node->value = (List<T>::value_type)0;
-    tmp_prev_node = (list_node_base*)new_node;
-  }
-  new_node->next = &end_;
-  end_.prev = (list_node_base*)new_node;
-}
-
-template <typename T>
-List<T>::~List() {
-  Clear();
-}
-
 // LIST ITERATORS
 template <typename T>
 typename List<T>::iterator List<T>::Begin() noexcept {
@@ -101,7 +74,7 @@ void List<T>::PushFront(const_reference value) {
   new_node->prev = &end_;
   new_node->next = end_.next;
   new_node->value = value;
-  
+
   // exfirst node
   end_.next->prev = (list_node_base*)new_node;
 

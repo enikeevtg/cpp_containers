@@ -14,7 +14,8 @@ template <typename T>
 void List<T>::PrintNodes() {
   std::cout << "\nPrintNodes():" << std::endl;
   int i = 1;
-  for (ListIterator iter = Begin(); iter != End(); ++iter, ++i) {
+  iterator end_iter = End();
+  for (iterator iter = Begin(); iter != end_iter; ++iter, ++i) {
     std::cout << "node#" << i << ".value = " << *iter << std::endl;
   }
 }
@@ -23,7 +24,8 @@ template <typename T>
 void List<T>::ReversePrintNodes() {
   std::cout << "\nReversePrintNodes():" << std::endl;
   int i = Size();
-  for (ListIterator iter = --End(); iter != End(); --iter, --i) {
+  iterator end_iter = End();
+  for (iterator iter = --End(); iter != end_iter; --iter, --i) {
     std::cout << "node#" << i << ".value = " << *iter << std::endl;
   }
 }

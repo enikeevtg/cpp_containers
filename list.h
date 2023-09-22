@@ -19,6 +19,7 @@ struct ListNode : public ListNodeBase<T> {
 template <typename T>
 class ListIterator {
  public:
+  using iterator = ListIterator;
   using value_type = T;
   using reference = T&;
 
@@ -29,33 +30,33 @@ class ListIterator {
 
   reference operator*() const { return ptr_->value; }
 
-  ListIterator& operator++() {
+  iterator& operator++() {
     ptr_ = (ListNode<T>*)ptr_->next;
     return *this;
   }
 
-  ListIterator operator++(int) {
-    ListIterator tmp = *this;
+  iterator operator++(int) {
+    iterator tmp = *this;
     ptr_ = (ListNode<T>*)ptr_->next;
     return tmp;
   }
 
-  ListIterator& operator--() {
+  iterator& operator--() {
     ptr_ = (ListNode<T>*)ptr_->prev;
     return *this;
   }
 
-  ListIterator operator--(int) {
-    ListIterator tmp = *this;
+  iterator operator--(int) {
+    iterator tmp = *this;
     ptr_ = (ListNode<T>*)ptr_->prev;
     return tmp;
   }
 
-  bool operator==(const ListIterator& iter) const {
+  bool operator==(const iterator& iter) const {
     return ptr_ == (ListNode<T>*)iter.ptr_;
   }
 
-  bool operator!=(const ListIterator& iter) const { return !(*this == iter); }
+  bool operator!=(const iterator& iter) const { return !(*this == iter); }
 
  private:
   ListNode<T>* ptr_;
@@ -67,6 +68,7 @@ class ListIterator {
 template <typename T>
 class ListConstIterator {
  public:
+  using const_iterator = ListConstIterator;
   using value_type = T;
   using const_reference = const T&;
 
@@ -77,21 +79,21 @@ class ListConstIterator {
 
   const_reference operator*() const { return ptr_->value; }
 
-  ListConstIterator& operator++() {
+  const_iterator& operator++() {
     ptr_ = (ListNode<T>*)ptr_->next;
     return *this;
   }
 
-  ListConstIterator& operator--() {
+  const_iterator& operator--() {
     ptr_ = (ListNode<T>*)ptr_->prev;
     return *this;
   }
 
-  bool operator==(const ListConstIterator& iter) {
+  bool operator==(const const_iterator& iter) {
     return ptr_ == (ListNode<T>*)iter.ptr_;
   }
 
-  bool operator!=(const ListConstIterator& iter) { return !(*this == iter); }
+  bool operator!=(const const_iterator& iter) { return !(*this == iter); }
 
  private:
   ListNode<T>* ptr_;
@@ -115,6 +117,7 @@ class List {
 
   List();
   explicit List(size_type n);
+  List(std::initializer_list<value_type> const& items);
   ~List();
 
   iterator Begin() noexcept;
@@ -141,6 +144,7 @@ class List {
 };
 
 #include "list.tpp"
+#include "list_ctors_detor.tpp"
 #include "list_extra.tpp"
 
 #endif  // CPP_CONTAINERS_LIST_H_
