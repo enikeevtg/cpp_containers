@@ -71,6 +71,15 @@ typename List<T>::iterator List<T>::Insert(iterator pos,
 }
 
 template <typename T>
+void List<T>::Erase(iterator pos) {
+  if (pos != End()) {
+    pos.ptr_->prev->next = pos.ptr_->next;
+    pos.ptr_->next->prev = pos.ptr_->prev;
+    delete pos.ptr_;
+  }
+}
+
+template <typename T>
 void List<T>::PushBack(const_reference value) {
   // new node
   list_node* new_node = new list_node;

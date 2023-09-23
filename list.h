@@ -134,6 +134,7 @@ class List {
 
   void Clear();
   iterator Insert(iterator pos, const_reference value);
+  void Erase(iterator pos);
   void PushBack(const_reference value);
   void PushFront(const_reference value);
   void Swap(List& other) noexcept;
