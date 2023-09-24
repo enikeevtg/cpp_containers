@@ -76,6 +76,7 @@ void List<T>::Erase(iterator pos) {
     pos.ptr_->prev->next = pos.ptr_->next;
     pos.ptr_->next->prev = pos.ptr_->prev;
     delete pos.ptr_;
+    --size_;
   }
 }
 
