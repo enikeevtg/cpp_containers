@@ -6,7 +6,7 @@ LIST IMPLEMENTATION FILE
 template <typename T>
 typename List<T>::const_reference List<T>::Front() {
   if (size_ == 0) {
-    throw std::range_error("List is empty");
+    throw std::range_error("Front(): the list is empty");
   }
   return ((list_node*)end_.next)->value;
 }
@@ -14,7 +14,7 @@ typename List<T>::const_reference List<T>::Front() {
 template <typename T>
 typename List<T>::const_reference List<T>::Front() const {
   if (size_ == 0) {
-    throw std::range_error("List is empty");
+    throw std::range_error("Front(): the list is empty");
   }
   return ((list_node*)end_.next)->value;
 }
@@ -22,7 +22,7 @@ typename List<T>::const_reference List<T>::Front() const {
 template <typename T>
 typename List<T>::const_reference List<T>::Back() {
   if (size_ == 0) {
-    throw std::range_error("List is empty");
+    throw std::range_error("Front(): the list is empty");
   }
   return ((list_node*)end_.prev)->value;
 }
@@ -30,7 +30,7 @@ typename List<T>::const_reference List<T>::Back() {
 template <typename T>
 typename List<T>::const_reference List<T>::Back() const {
   if (size_ == 0) {
-    throw std::range_error("List is empty");
+    throw std::range_error("Front(): the list is empty");
   }
   return ((list_node*)end_.prev)->value;
 }
@@ -104,13 +104,18 @@ typename List<T>::iterator List<T>::Insert(iterator pos,
 }
 
 template <typename T>
-void List<T>::Erase(iterator pos) {
-  if (pos != End()) {
-    pos.ptr_->prev->next = pos.ptr_->next;
-    pos.ptr_->next->prev = pos.ptr_->prev;
-    delete pos.ptr_;
-    --size_;
+List<T>::iterator List<T>::Erase(iterator pos) {
+  if (pos == End()) {
+    throw std::out_of_range("Erase(): the element is out of list range");
   }
+
+  list_node* tmp_next_ptr = pos.ptr_->next;
+  pos.ptr_->prev->next = pos.ptr_->next;
+  pos.ptr_->next->prev = pos.ptr_->prev;
+  delete pos.ptr_;
+  pos.ptr_ = tmp_next_ptr;
+  --size_;
+  return pos;
 }
 
 template <typename T>
