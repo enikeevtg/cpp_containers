@@ -2,6 +2,39 @@
 LIST IMPLEMENTATION FILE
 */
 
+// LIST ELEMENT ACCESS
+template <typename T>
+typename List<T>::const_reference List<T>::Front() {
+  if (size_ == 0) {
+    throw std::range_error("List is empty");
+  }
+  return ((list_node*)end_.next)->value;
+}
+
+template <typename T>
+typename List<T>::const_reference List<T>::Front() const {
+  if (size_ == 0) {
+    throw std::range_error("List is empty");
+  }
+  return ((list_node*)end_.next)->value;
+}
+
+template <typename T>
+typename List<T>::const_reference List<T>::Back() {
+  if (size_ == 0) {
+    throw std::range_error("List is empty");
+  }
+  return ((list_node*)end_.prev)->value;
+}
+
+template <typename T>
+typename List<T>::const_reference List<T>::Back() const {
+  if (size_ == 0) {
+    throw std::range_error("List is empty");
+  }
+  return ((list_node*)end_.prev)->value;
+}
+
 // LIST ITERATORS
 template <typename T>
 typename List<T>::iterator List<T>::Begin() noexcept {

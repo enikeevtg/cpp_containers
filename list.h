@@ -123,6 +123,11 @@ class List {
   ~List();
   List operator=(List&& other);
 
+  const_reference Front();
+  const_reference Front() const;
+  const_reference Back();
+  const_reference Back() const;
+
   iterator Begin() noexcept;
   const_iterator Begin() const noexcept;
   iterator End() noexcept;
