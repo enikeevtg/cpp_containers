@@ -106,7 +106,7 @@ typename List<T>::iterator List<T>::Insert(iterator pos,
 template <typename T>
 List<T>::iterator List<T>::Erase(iterator pos) {
   if (pos == End()) {
-    throw std::out_of_range("Erase(): the element is out of list range");
+    throw std::out_of_range("Erase(): the element is out of the list range");
   }
 
   list_node* tmp_next_ptr = pos.ptr_->next;
@@ -134,6 +134,19 @@ void List<T>::PushBack(const_reference value) {
   if (Empty()) end_.next = (list_node_base*)new_node;
 
   ++size_;
+}
+
+template <typename T>
+void List<T>::PopBack() {
+  if (size_ == 0) {
+    throw std::range_error("PopBack(): the list is empty");
+  }
+
+  ListNode* tmp_node = end_.prev;
+  end_.prev = end_.prev->prev;
+  end_.prev->next = &end_;
+  delete tmp_node;
+  --size_;
 }
 
 template <typename T>
