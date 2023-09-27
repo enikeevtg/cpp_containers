@@ -168,6 +168,19 @@ void List<T>::PushFront(const_reference value) {
 }
 
 template <typename T>
+void List<T>::PopFront() {
+  if (size_ == 0) {
+    throw std::range_error("PopFront(): the list is empty");
+  }
+
+  ListNode* tmp_node = end_.next;
+  end_.next = end_.next->next;
+  end_.next->prev = &end_;
+  delete tmp_node;
+  --size_;
+}
+
+template <typename T>
 void List<T>::Swap(List& other) noexcept {
   std::swap(end_.next, other.end_.next);
   std::swap(end_.prev, other.end_.prev);

@@ -143,6 +143,7 @@ class List {
   void PushBack(const_reference value);
   void PopBack();
   void PushFront(const_reference value);
+  void PopFront();
   void Swap(List& other) noexcept;
 
   void PrintEndPtr();
