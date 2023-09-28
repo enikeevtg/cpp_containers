@@ -145,6 +145,7 @@ class List {
   void PushFront(const_reference value);
   void PopFront();
   void Swap(List& other) noexcept;
+  void Reverse();
 
   void PrintEndPtr();
   void PrintNodes();

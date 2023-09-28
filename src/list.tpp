@@ -202,3 +202,13 @@ void List<T>::Swap(List& other) noexcept {
     other.end_.next->prev = &other.end_;
   }
 }
+
+template <typename T>
+void List<T>::Reverse() {
+  list_node_base* ptr = end_.next;
+  while (ptr != &end_) {
+    std::swap(ptr->prev, ptr->next);
+    ptr = ptr->prev;  // old value of ptr->next
+  }
+  std::swap(ptr->prev, ptr->next);  // node after last node (end_)
+}
