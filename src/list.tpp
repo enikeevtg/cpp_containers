@@ -214,3 +214,28 @@ void List<T>::Reverse() {
     std::swap(ptr->prev, ptr->next);  // node after last node (end_)
   }
 }
+
+template <typename T>
+void List<T>::Sort() {
+  QuickSort(Begin(), End());
+}
+
+template <typename T>
+void List<T>::QuickSort(iterator begin, iterator end) {
+  value_type pivot = *begin;
+  iterator tmp_iter = begin;
+  ++tmp_iter;
+  while (tmp_iter != end) {
+    if (*tmp_iter < pivot) {
+      tmp_iter.ptr_->prev = begin.ptr_->prev;
+      begin.ptr_->next = tmp_iter.ptr_->next;
+      tmp_iter.ptr_->next = begin.ptr_;
+      begin.ptr_->prev = tmp_iter.ptr_;
+      
+      tmp_iter.ptr_ = begin.ptr_->next;
+    }
+  }
+
+  if (++End() != begin) QuickSort(++End(), begin);
+  if (begin != --End()) QuickSort(begin, End());
+}

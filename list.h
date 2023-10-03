@@ -58,6 +58,14 @@ class ListIterator {
 
   bool operator!=(const iterator& iter) const { return !(*this == iter); }
 
+  bool operator>(const iterator& iter) const {
+    return ptr_->value > iter.ptr_->value;
+  }
+
+  bool operator<(const iterator& iter) const {
+    return ptr_->value < iter.ptr_->value;
+  }
+
  private:
   ListNode<T>* ptr_;
 
@@ -94,6 +102,14 @@ class ListConstIterator {
   }
 
   bool operator!=(const const_iterator& iter) { return !(*this == iter); }
+
+  bool operator>(const iterator& iter) const {
+    return ptr_->value > iter.ptr_->value;
+  }
+
+  bool operator<(const iterator& iter) const {
+    return ptr_->value < iter.ptr_->value;
+  }
 
  private:
   ListNode<T>* ptr_;
@@ -146,12 +162,15 @@ class List {
   void PopFront();
   void Swap(List& other) noexcept;
   void Reverse();
+  void Sort();
 
   void PrintEndPtr();
   void PrintNodes();
   void ReversePrintNodes();
 
  private:
+  void QuickSort(iterator begin, iterator end);
+
   list_node_base end_;
   size_type size_;
 };
