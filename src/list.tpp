@@ -227,11 +227,15 @@ void List<T>::QuickSort(iterator begin, iterator end) {
   ++tmp_iter;
   while (tmp_iter != end) {
     if (*tmp_iter < pivot) {
+      begin.ptr_->prev->next = tmp_iter.ptr_;
+      tmp_iter.ptr_->next->prev = begin.ptr_;
+
       tmp_iter.ptr_->prev = begin.ptr_->prev;
       begin.ptr_->next = tmp_iter.ptr_->next;
+      
       tmp_iter.ptr_->next = begin.ptr_;
       begin.ptr_->prev = tmp_iter.ptr_;
-      
+
       tmp_iter.ptr_ = begin.ptr_->next;
     }
   }
