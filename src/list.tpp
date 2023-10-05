@@ -229,7 +229,7 @@ void List<T>::Sort() {
 
 template <typename T>
 void List<T>::QuickSort(iterator begin, iterator end) {
-  if (begin.ptr_ == end.ptr_) return;
+  // if (begin.ptr_ == end.ptr_) return;
   value_type pivot = *begin;
   iterator tmp_iter = begin;
   ++tmp_iter;
@@ -253,8 +253,8 @@ void List<T>::QuickSort(iterator begin, iterator end) {
   }
 
   //PrintNodes();  // Debugging
-  QuickSort(new_begin, begin);
-  QuickSort(++begin, end);
-  // if (new_begin != begin) QuickSort(new_begin, begin);
-  // if (begin.ptr_->next != end.ptr_) QuickSort(++begin, end);
+  if (new_begin != begin) QuickSort(new_begin, begin);
+  if (begin.ptr_->next != end.ptr_) QuickSort(++begin, end);
+  // QuickSort(new_begin, begin);
+  // QuickSort(++begin, end);
 }
