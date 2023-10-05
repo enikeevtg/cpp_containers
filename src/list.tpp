@@ -104,7 +104,7 @@ typename List<T>::iterator List<T>::Insert(iterator pos,
 }
 
 template <typename T>
-List<T>::iterator List<T>::Erase(iterator pos) {
+typename List<T>::iterator List<T>::Erase(iterator pos) {
   if (pos == End()) {
     throw std::out_of_range("Erase(): the element is out of the list range");
   }
@@ -142,10 +142,10 @@ void List<T>::PopBack() {
     throw std::range_error("PopBack(): the list is empty");
   }
 
-  ListNode* tmp_node = end_.prev;
+  // ListNodeBase* tmp_node = end_.prev;
   end_.prev = end_.prev->prev;
   end_.prev->next = &end_;
-  delete tmp_node;
+  // delete (ListNode*)tmp_node;
   --size_;
 }
 
@@ -173,10 +173,10 @@ void List<T>::PopFront() {
     throw std::range_error("PopFront(): the list is empty");
   }
 
-  ListNode* tmp_node = end_.next;
+  // ListNodeBase* tmp_node = end_.next;
   end_.next = end_.next->next;
   end_.next->prev = &end_;
-  delete tmp_node;
+  // delete (ListNode*)tmp_node;
   --size_;
 }
 
@@ -204,6 +204,13 @@ void List<T>::Swap(List& other) noexcept {
 }
 
 template <typename T>
+void List<T>::Merge(List& other) {
+  if (this != &other) {
+    
+  }
+}
+
+template <typename T>
 void List<T>::Reverse() {
   if (size_ > 1) {
     list_node_base* ptr = end_.next;
@@ -226,7 +233,9 @@ void List<T>::QuickSort(iterator begin, iterator end) {
   iterator tmp_iter = begin;
   ++tmp_iter;
   while (tmp_iter != end) {
+    list_node* tmp_ptr = (list_node*)tmp_iter.ptr_->next;
     if (*tmp_iter < pivot) {
+
       begin.ptr_->prev->next = tmp_iter.ptr_;
       tmp_iter.ptr_->next->prev = begin.ptr_;
 
@@ -235,11 +244,10 @@ void List<T>::QuickSort(iterator begin, iterator end) {
       
       tmp_iter.ptr_->next = begin.ptr_;
       begin.ptr_->prev = tmp_iter.ptr_;
-
-      tmp_iter.ptr_ = begin.ptr_->next;
     }
+    tmp_iter.ptr_ = tmp_ptr;
   }
 
-  if (++End() != begin) QuickSort(++End(), begin);
-  if (begin != --End()) QuickSort(begin, End());
+  // if (++End() != begin) QuickSort(++End(), begin);
+  // if (begin != --End()) QuickSort(begin, End());
 }

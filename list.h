@@ -103,11 +103,11 @@ class ListConstIterator {
 
   bool operator!=(const const_iterator& iter) { return !(*this == iter); }
 
-  bool operator>(const iterator& iter) const {
+  bool operator>(const const_iterator& iter) const {
     return ptr_->value > iter.ptr_->value;
   }
 
-  bool operator<(const iterator& iter) const {
+  bool operator<(const const_iterator& iter) const {
     return ptr_->value < iter.ptr_->value;
   }
 
@@ -161,6 +161,7 @@ class List {
   void PushFront(const_reference value);
   void PopFront();
   void Swap(List& other) noexcept;
+  void Merge(List& other);
   void Reverse();
   void Sort();
 
