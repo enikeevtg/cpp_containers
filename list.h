@@ -22,6 +22,7 @@ class ListIterator {
   using iterator = ListIterator;
   using value_type = T;
   using reference = T&;
+  using size_type = size_t;
 
   ListIterator() noexcept : ptr_(nullptr){};
   explicit ListIterator(ListNode<T>* list_node_ptr) noexcept
@@ -29,6 +30,14 @@ class ListIterator {
   ~ListIterator() noexcept { ptr_ = nullptr; };
 
   reference operator*() const { return ptr_->value; }
+
+  iterator operator+(size_type offset) const {
+    iterator iter{this->ptr_};
+    for (size_type i = 0; i < offset; ++i) {
+      iter.ptr_ = (ListNode<T>*)iter.ptr_->next;
+    }
+    return iter;
+  }
 
   iterator& operator++() {
     ptr_ = (ListNode<T>*)ptr_->next;
@@ -39,6 +48,14 @@ class ListIterator {
     iterator tmp = *this;
     ptr_ = (ListNode<T>*)ptr_->next;
     return tmp;
+  }
+
+  iterator operator-(size_type offset) const {
+    iterator iter{this->ptr_};
+    for (size_type i = 0; i < offset; ++i) {
+      iter.ptr_ = (ListNode<T>*)iter.ptr_->prev;
+    }
+    return iter;
   }
 
   iterator& operator--() {
@@ -57,14 +74,6 @@ class ListIterator {
   }
 
   bool operator!=(const iterator& iter) const { return !(*this == iter); }
-
-  bool operator>(const iterator& iter) const {
-    return ptr_->value > iter.ptr_->value;
-  }
-
-  bool operator<(const iterator& iter) const {
-    return ptr_->value < iter.ptr_->value;
-  }
 
  private:
   ListNode<T>* ptr_;
@@ -87,9 +96,31 @@ class ListConstIterator {
 
   const_reference operator*() const { return ptr_->value; }
 
+  const_iterator operator+(size_type offset) const {
+    iterator iter{this->ptr_};
+    for (size_type i = 0; i < offset; ++i) {
+      iter.ptr_ = (ListNode<T>*)iter.ptr_->next;
+    }
+    return iter;
+  }
+
   const_iterator& operator++() {
     ptr_ = (ListNode<T>*)ptr_->next;
     return *this;
+  }
+
+  const_iterator operator++(int) {
+    iterator tmp = *this;
+    ptr_ = (ListNode<T>*)ptr_->next;
+    return tmp;
+  }
+
+  const_iterator operator-(size_type offset) const {
+    iterator iter{this->ptr_};
+    for (size_type i = 0; i < offset; ++i) {
+      iter.ptr_ = (ListNode<T>*)iter.ptr_->prev;
+    }
+    return iter;
   }
 
   const_iterator& operator--() {
@@ -97,19 +128,17 @@ class ListConstIterator {
     return *this;
   }
 
+  const_iterator operator--(int) {
+    iterator tmp = *this;
+    ptr_ = (ListNode<T>*)ptr_->prev;
+    return tmp;
+  }
+
   bool operator==(const const_iterator& iter) {
     return ptr_ == (ListNode<T>*)iter.ptr_;
   }
 
   bool operator!=(const const_iterator& iter) { return !(*this == iter); }
-
-  bool operator>(const const_iterator& iter) const {
-    return ptr_->value > iter.ptr_->value;
-  }
-
-  bool operator<(const const_iterator& iter) const {
-    return ptr_->value < iter.ptr_->value;
-  }
 
  private:
   ListNode<T>* ptr_;
