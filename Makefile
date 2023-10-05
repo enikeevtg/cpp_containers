@@ -1,7 +1,7 @@
 # UTILITIES
 CC = gcc
-# LEAKS = leaks -atExit -- 
-# OS := $(shell uname)
+LEAKS = leaks -atExit -- 
+OS := $(shell uname)
 ifeq ($(OS), Darwin)
 	RM = rm -rf
 else ifeq ($(OS), Linux)
@@ -38,8 +38,7 @@ clean:
 
 # EXPERIMENTS
 int:
-#	$(CC) $(CF) main_$@.cc
-	g++ main_$@.cc
+	$(CC) $(CF) main_$@.cc
 	$(LEAKS) ./$(EXE)
 
 string:

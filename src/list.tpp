@@ -231,28 +231,29 @@ template <typename T>
 void List<T>::QuickSort(iterator begin, iterator end) {
   // if (begin.ptr_ == end.ptr_) return;
   value_type pivot = *begin;
-  iterator tmp_iter = begin;
-  ++tmp_iter;
+  iterator current_iter = begin;
+  ++current_iter;
   iterator new_begin = begin;
 
-  while (tmp_iter != end) {
-    if (*tmp_iter < pivot) {
-      if (new_begin == begin) new_begin = tmp_iter;
-      begin.ptr_->prev->next = tmp_iter.ptr_;
-      tmp_iter.ptr_->next->prev = begin.ptr_;
+  while (current_iter != end) {
+    iterator tmp = current_iter;
+    ++tmp;
+    std::cout << *current_iter << std::endl;
+    if (*current_iter < pivot) {
+      if (new_begin == begin) new_begin = current_iter;
 
-      tmp_iter.ptr_->prev = begin.ptr_->prev;
-      begin.ptr_->next = tmp_iter.ptr_->next;
-      
-      tmp_iter.ptr_->next = begin.ptr_;
-      begin.ptr_->prev = tmp_iter.ptr_;
+      current_iter.ptr_->prev->next = current_iter.ptr_->next;
+      current_iter.ptr_->next->prev = current_iter.ptr_->prev;
 
-      ++tmp_iter;  // == begin
+      begin.ptr_->prev->next = current_iter.ptr_;
+      current_iter.ptr_->prev = begin.ptr_->prev;
+
+      begin.ptr_->prev = current_iter.ptr_;
+      current_iter.ptr_->next = begin.ptr_;
     }
-    ++tmp_iter;  // == ++begin
+    current_iter = tmp;  // == ++begin
   }
 
-  //PrintNodes();  // Debugging
   if (new_begin != begin) QuickSort(new_begin, begin);
   if (begin.ptr_->next != end.ptr_) QuickSort(++begin, end);
   // QuickSort(new_begin, begin);
