@@ -1,7 +1,7 @@
 #include "list.h"
 
 int main() {
-  List<int> l_src{21, 0, 1, 2, 3, 4, 5, 6, 11, 7, 8, 9, 10};
+  List<int> l_src{21, 20, 0, 1, 2, 3, 4, 5, 6, 11, 7, 8, 9, 10};
 
   l_src.Sort();
   l_src.PrintNodes();
