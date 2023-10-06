@@ -22,7 +22,7 @@ typename List<T>::const_reference List<T>::Front() const {
 template <typename T>
 typename List<T>::const_reference List<T>::Back() {
   if (size_ == 0) {
-    throw std::range_error("Front(): the list is empty");
+    throw std::range_error("Back(): the list is empty");
   }
   return ((list_node*)end_.prev)->value;
 }
@@ -30,7 +30,7 @@ typename List<T>::const_reference List<T>::Back() {
 template <typename T>
 typename List<T>::const_reference List<T>::Back() const {
   if (size_ == 0) {
-    throw std::range_error("Front(): the list is empty");
+    throw std::range_error("Back(): the list is empty");
   }
   return ((list_node*)end_.prev)->value;
 }
@@ -91,16 +91,16 @@ template <typename T>
 typename List<T>::iterator List<T>::Insert(iterator pos,
                                            const_reference value) {
   list_node* new_node = new list_node;
-  new_node->prev = pos.ptr_;
-  new_node->next = pos.ptr_->next;
+  new_node->prev = pos.ptr_->prev;
+  new_node->next = pos.ptr_;
   new_node->value = value;
 
-  pos.ptr_->next->prev = new_node;
-  pos.ptr_->next = new_node;
+  pos.ptr_->prev->next = new_node;
+  pos.ptr_->prev = new_node;
 
   ++size_;
 
-  return ++pos;
+  return --pos;
 }
 
 template <typename T>
@@ -206,7 +206,6 @@ void List<T>::Swap(List& other) noexcept {
 template <typename T>
 void List<T>::Merge(List& other) {
   if (this != &other) {
-    
   }
 }
 
@@ -260,4 +259,15 @@ void List<T>::QuickSort(iterator begin, iterator end) {
   if (begin.ptr_->next != end.ptr_) QuickSort(++begin, end);
   // QuickSort(new_begin, begin);
   // QuickSort(++begin, end);
+}
+
+template <typename T>
+std::ostream& operator<<(std::ostream& out, const List<T>& list) {
+  typename List<T>::const_iterator end = list.End();
+  for (typename List<T>::const_iterator iter = list.Begin(); iter != end;
+       ++iter) {
+    out << *iter << ' ';
+  }
+  out << std::endl;
+  return out;
 }

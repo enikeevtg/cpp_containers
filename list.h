@@ -88,6 +88,7 @@ class ListConstIterator {
   using const_iterator = ListConstIterator;
   using value_type = T;
   using const_reference = const T&;
+  using size_type = size_t;
 
   ListConstIterator() noexcept : ptr_(nullptr){};
   ListConstIterator(ListNode<T>* list_node_ptr) noexcept
@@ -97,7 +98,7 @@ class ListConstIterator {
   const_reference operator*() const { return ptr_->value; }
 
   const_iterator operator+(size_type offset) const {
-    iterator iter{this->ptr_};
+    const_iterator iter{this->ptr_};
     for (size_type i = 0; i < offset; ++i) {
       iter.ptr_ = (ListNode<T>*)iter.ptr_->next;
     }
@@ -110,13 +111,13 @@ class ListConstIterator {
   }
 
   const_iterator operator++(int) {
-    iterator tmp = *this;
+    const_iterator tmp = *this;
     ptr_ = (ListNode<T>*)ptr_->next;
     return tmp;
   }
 
   const_iterator operator-(size_type offset) const {
-    iterator iter{this->ptr_};
+    const_iterator iter{this->ptr_};
     for (size_type i = 0; i < offset; ++i) {
       iter.ptr_ = (ListNode<T>*)iter.ptr_->prev;
     }
@@ -129,7 +130,7 @@ class ListConstIterator {
   }
 
   const_iterator operator--(int) {
-    iterator tmp = *this;
+    const_iterator tmp = *this;
     ptr_ = (ListNode<T>*)ptr_->prev;
     return tmp;
   }
@@ -194,6 +195,7 @@ class List {
   void Reverse();
   void Sort();
 
+  // iterator InsertMany(const_iterator pos, Args&&... args);
   void PrintEndPtr();
   void PrintNodes();
   void ReversePrintNodes();
@@ -204,6 +206,9 @@ class List {
   list_node_base end_;
   size_type size_;
 };
+
+template <typename T>
+std::ostream& operator<<(std::ostream& out, const List<T>& list);
 
 #include "src/list.tpp"
 #include "src/list_ctors_detor.tpp"

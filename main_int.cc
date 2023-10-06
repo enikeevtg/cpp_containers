@@ -1,49 +1,60 @@
 #include "list.h"
 
-int main() {
-  // List<int> l_src{21, 20, 0, 1, 2, 3, 4, 5, 6, 11, 7, 8, 9, 10};
-  List<int> l_src{1, -1, -23, 4, -2};
-
-  l_src.Sort();
-  l_src.PrintNodes();
-
-  // List<int> l;
+void ctor_test() {
+  List<int> l;
   // List<int> l(11);
   // List<int> l{0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+
+  // List<int> l_src{21, 20, 0, 1, 2, 3, 4, 5, 6, 11, 7, 8, 9, 10};
   // List<int> l(l_src);
   // List<int> l(std::move(l_src));
 
-  // std::cout << "empty is " << l.Empty() << std::endl;
-  // std::cout << "size = " << l.Size() << std::endl;
-  // std::cout << "max size is " << l.MaxSize() << std::endl;
+  l.PrintNodes();
+  std::cout << "empty is " << l.Empty() << std::endl;
+  std::cout << "size = " << l.Size() << std::endl;
+  std::cout << "max size is " << l.MaxSize() << std::endl;
+}
 
-  // l.PrintEndPtr();
+void insert_test() {
+  List<int> l{0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+  int value_to_insert = 11;
+
   // l.PrintNodes();
-  // l.ReversePrintNodes();
-
-  // std::cout << "*(l.End()) = " << *(l.End()) << std::endl;
-
-  // // INSERT
-  // int i = 1;
-  // int value_to_insert = 11;
-  // for (ListIterator iter = l.Begin(); iter != l.End(); ++iter, ++i) {
-  //   if (iter == l.Begin()) {
-  //     iter = l.Insert(l.End(), value_to_insert);
-  //     iter = l.Insert(--l.End(), 121);
-  //   }
-  // }
+  std::cout << l;
+  ListIterator iter = l.Insert(l.Begin(), value_to_insert);
+  std::cout << value_to_insert << " inserted:\n";
   // l.PrintNodes();
-  // l.PrintEndPtr();
-  // std::cout << "size = " << l.Size() << std::endl;
+  std::cout << l;
+}
 
-  // // ITERATOR++ and ++ITERATOR
-  // std::cout << "*(l.Begin()++) = " << *(l.Begin()++) << std::endl;
-  // std::cout << "*(++l.Begin()) = " << *(++l.Begin()) << std::endl;
+void push_test() {
+  List<int> l(11);
 
-  // l.PushFront(888);
-  // l.PrintNodes();
-  // l.PushBack(888);
-  // l.PrintNodes();
+  l.PrintNodes();
+  l.PushFront(888);
+  l.PrintNodes();
+  l.PushBack(888);
+  l.PrintNodes();
+}
 
+void incr_iterator_test() {
+  List<int> l{0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+  std::cout << "*(l.Begin()++) = " << *(l.Begin()++) << std::endl;
+  std::cout << "*(++l.Begin()) = " << *(++l.Begin()) << std::endl;
+}
+
+void sort_test() {
+  // List<int> l_src{21, 20, 0, 1, 2, 3, 4, 5, 6, 11, 7, 8, 9, 10};
+  List<int> l_src{1, -1, -23, 4, -2};
+  l_src.Sort();
+  l_src.PrintNodes();
+}
+
+int main() {
+  // ctor_test();
+  insert_test();
+  // push_test();
+  // incr_iterator_test();
+  // sort_test();
   return 0;
 }
