@@ -175,9 +175,11 @@ class List {
   const_reference Back() const;
 
   iterator Begin() noexcept;
-  const_iterator Begin() const noexcept;
   iterator End() noexcept;
+  const_iterator Begin() const noexcept;
   const_iterator End() const noexcept;
+  const_iterator CBegin() const noexcept;
+  const_iterator CEnd() const noexcept;
 
   bool Empty() const noexcept;
   size_type Size() const noexcept;
@@ -195,7 +197,9 @@ class List {
   void Reverse();
   void Sort();
 
-  // iterator InsertMany(const_iterator pos, Args&&... args);
+  template <typename... Args>
+  iterator InsertMany(const_iterator pos, Args&&... args);
+
   void PrintEndPtr();
   void PrintNodes();
   void ReversePrintNodes();

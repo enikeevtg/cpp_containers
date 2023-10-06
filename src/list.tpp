@@ -42,17 +42,28 @@ typename List<T>::iterator List<T>::Begin() noexcept {
 }
 
 template <typename T>
-typename List<T>::const_iterator List<T>::Begin() const noexcept {
-  return const_iterator((list_node*)end_.next);
-}
-
-template <typename T>
 typename List<T>::iterator List<T>::End() noexcept {
   return iterator((list_node*)&end_);
 }
 
 template <typename T>
+typename List<T>::const_iterator List<T>::Begin() const noexcept {
+  return const_iterator((list_node*)end_.next);
+}
+
+template <typename T>
 typename List<T>::const_iterator List<T>::End() const noexcept {
+  return const_iterator((list_node*)&end_);
+}
+
+template <typename T>
+typename List<T>::const_iterator List<T>::CBegin() const noexcept {
+  // std::cout << "const_iterator\n";
+  return const_iterator((list_node*)end_.next);
+}
+
+template <typename T>
+typename List<T>::const_iterator List<T>::CEnd() const noexcept {
   return const_iterator((list_node*)&end_);
 }
 
@@ -131,7 +142,7 @@ void List<T>::PushBack(const_reference value) {
 
   // node after last node
   end_.prev = (list_node_base*)new_node;
-  if (Empty()) end_.next = (list_node_base*)new_node;
+  // if (Empty()) end_.next = (list_node_base*)new_node;
 
   ++size_;
 }
@@ -161,7 +172,7 @@ void List<T>::PushFront(const_reference value) {
   end_.next->prev = (list_node_base*)new_node;
 
   // node after last node
-  if (Empty()) end_.prev = (list_node_base*)new_node;
+  // if (Empty()) end_.prev = (list_node_base*)new_node;
   end_.next = (list_node_base*)new_node;
 
   ++size_;
@@ -231,15 +242,10 @@ void List<T>::QuickSort(iterator begin, iterator end) {
   // if (begin.ptr_ == end.ptr_) return;
   value_type pivot = *begin;
   iterator current_iter = begin + 1;
-  // iterator current_iter = begin;
-  // ++current_iter;
   iterator new_begin = begin;
 
   while (current_iter != end) {
     iterator tmp = current_iter + 1;
-    // iterator tmp = current_iter;
-    // ++tmp;
-    std::cout << *current_iter << std::endl;
     if (*current_iter < pivot) {
       if (new_begin == begin) new_begin = current_iter;
 
@@ -259,6 +265,15 @@ void List<T>::QuickSort(iterator begin, iterator end) {
   if (begin.ptr_->next != end.ptr_) QuickSort(++begin, end);
   // QuickSort(new_begin, begin);
   // QuickSort(++begin, end);
+}
+
+template <typename T>
+template <typename... Args>
+typename List<T>::iterator List<T>::InsertMany(const_iterator pos,
+                                               Args&&... args) {
+  iterator tmp_iter(pos.ptr_);
+  (Insert(tmp_iter, std::forward<Args>(args)), ...);
+  return --tmp_iter;
 }
 
 template <typename T>
